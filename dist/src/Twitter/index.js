@@ -21,11 +21,16 @@ export var Twitter = function (props) {
             });
         }
         else {
-            setData(adapter(useCustomTweetExtendedData));
+            if(useCustomTweetExtendedData && typeof useCustomTweetExtendedData != 'undefined'){
+                setData(adapter(useCustomTweetExtendedData));
+            }
         }
     }, [setData]);
-    if (!data) {
+    if (!data || typeof data == 'undefined') {
         return null;
+    }
+    if (useCustomTweetExtendedData) {
+        id = useCustomTweetExtendedData.id_str;
     }
     var styles = evaluateTheme(appearance);
     return (<TouchableWithoutFeedback onPress={function () { return onTweetPress(id); }}>
@@ -55,12 +60,12 @@ export var Twitter = function (props) {
                 {((_k = (_j = (_h = data === null || data === void 0 ? void 0 : data.quotedTweet) === null || _h === void 0 ? void 0 : _h.media) === null || _j === void 0 ? void 0 : _j[0]) === null || _k === void 0 ? void 0 : _k.type) === "video" ? (<TwitterVideo source={data.quotedTweet.media[0].url} aspectRatio={data.quotedTweet.media[0].aspectRatio} poster={data.quotedTweet.media[0].posterUrl}/>) : ((_o = (_m = (_l = data === null || data === void 0 ? void 0 : data.quotedTweet) === null || _l === void 0 ? void 0 : _l.media) === null || _m === void 0 ? void 0 : _m[0]) === null || _o === void 0 ? void 0 : _o.type) === "photo" ? (<ImageGallery medias={(_p = data === null || data === void 0 ? void 0 : data.quotedTweet) === null || _p === void 0 ? void 0 : _p.media}/>) : null}
               </View>) : null}
             <View style={styles.metadataRowContainer}>
-              <Image source={require("./assets/heart.png")} style={styles.heart}/>
+              {/* <Image source={require("./assets/heart.png")} style={styles.heart}/>
               <Text style={styles.metadataRowText}>
                 {formatLikeNumber(data === null || data === void 0 ? void 0 : data.likeNumber) +
         "    " +
         format(parse(data === null || data === void 0 ? void 0 : data.createdAt, "EEE MMM dd HH:mm:ss xx yyyy", new Date()), getFormattedTimeByLanguage(language).format, { locale: getFormattedTimeByLanguage(language).locale })}
-              </Text>
+              </Text> */}
             </View>
           </>) : null}
       </View>
